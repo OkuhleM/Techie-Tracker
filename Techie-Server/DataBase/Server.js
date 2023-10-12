@@ -1,27 +1,16 @@
 // const mysql = require('mysql');
 const mysql = require("mysql")
-const {createPool } = require("mysql")
 require("dotenv").config();
-
-
-    const techieUserConnection = createPool({
-      connectionLimit : 10,
-      connectTimeout  : 60 * 60 * 1000,
-      acquireTimeout  : 60 * 60 * 1000,
-      timeout         : 60 * 60 * 1000,
-      user            : process.env.USER,
-      host            : process.env.HOST,
-      database        : process.env.DATABASE,
-      password        : process.env.PASSWORD,
-      port            : process.env.PORT,
+    'use strict';
+   
+    const databaseConnection = mysql.createConnection({
+      host     : 'localhost',
+      user     : 'root',
+      password : 'L!nd0kuhle@22',
+      database : 'user_storage'
     });
-
-  //  techieUserConnection.query(`select * from user_profile`, (err, result, fields)=>{
-  //   if(err){
-  //     return console.log(err)
-  //   }
-  //   return console.log(result)
-  //  })
-     
-    module.exports =  {techieUserConnection} ;
-
+    databaseConnection.connect(function(err) {
+      if (err) throw err;
+      console.log("Database Connected!");
+    });
+  
