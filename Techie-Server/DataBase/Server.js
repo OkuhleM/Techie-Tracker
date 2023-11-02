@@ -1,4 +1,3 @@
-// const mysql = require('mysql');
 const mysql = require("mysql")
 require("dotenv").config();
     'use strict';
@@ -14,3 +13,4 @@ require("dotenv").config();
       console.log("Database Connected!");
     });
   
+    module.exports = {databaseConnection}

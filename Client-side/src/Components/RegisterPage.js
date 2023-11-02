@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 import "../styling/Registeration.css"
 
 function RegisterPage() {
@@ -14,6 +15,9 @@ function RegisterPage() {
 
   const [usersList, setUsers] = useState([])
 
+  const navigate = useNavigate()
+
+
   const handleChange = (e) => {
     setInputValue({...inputValue,[e.target.name]: e.target.value})
 
@@ -22,9 +26,12 @@ console.log('inputValue', inputValue)
 console.log('usersList', usersList)
 const register = (e) => {
     e.preventDefault()
-  axios.post("http://localhost:5000/register", inputValue)
+  axios.post("http://localhost:3000/register", inputValue)
   .then(res=>{
-    console.log('res', res[0].values)
+    console.log('res', res.data)
+    if(res.data.Status === "success"){
+      navigate("/profile")
+    }
     setUsers(res.data.data)
   })
 }

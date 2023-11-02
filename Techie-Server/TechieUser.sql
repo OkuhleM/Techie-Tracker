@@ -21,7 +21,7 @@ ALTER TABLE user_profile
  INSERT INTO user_profile(Name, Surname, Email, password, confirmPassword, RegisteredAt, Intro) VALUES ("Montle","Mazibuko","Montle@curro.co.za","S@mkelo@994","S@mkelo@994",Now(),"Hi I am Montle"); 
 
 CREATE TABLE year_in_review (
-    YearInReviewID int,
+    YearInReviewID int AUTO_INCREMENT,
     Highlights varchar(1000),
     Lowlight varchar(1000),
     Needlights varchar(1000),
@@ -33,7 +33,7 @@ CREATE TABLE year_in_review (
 );
 
 CREATE TABLE Career_Goal (
-    Career_GoalID int,
+    Career_GoalID int AUTO_INCREMENT,
     FirstQuater TEXT,
     SecondQuater TEXT,
     ThirdQuater TEXT,
@@ -46,7 +46,7 @@ CREATE TABLE Career_Goal (
 
 
 CREATE TABLE Habit_Tracker (
-    Habit_TrackerID int,
+    Habit_TrackerID int AUTO_INCREMENT,
     ReadSomething TEXT,
     PractiseCode TEXT,
     WriteSomething TEXT,
@@ -54,6 +54,20 @@ CREATE TABLE Habit_Tracker (
     UpdatedAt DATETIME,
     UserID int,
     PRIMARY KEY (Habit_TrackerID),
+    FOREIGN KEY (UserID) REFERENCES user_profile(UserID)
+);
+
+CREATE TABLE Skill_Tracker (
+    Skill_TrackerID int AUTO_INCREMENT,
+    Skill TEXT,
+    Catergory TEXT,
+    CourseLink TEXT,
+    TrainingStatus TEXT,
+    Comments TEXT,
+    CreatedAt DATETIME,
+    UpdatedAt DATETIME,
+    UserID int,
+    PRIMARY KEY (Skill_TrackerID),
     FOREIGN KEY (UserID) REFERENCES user_profile(UserID)
 );
 
@@ -66,7 +80,7 @@ ALTER TABLE user_profile RENAME COLUMN PasswordHash TO password;
 ALTER TABLE user_profile ADD COLUMN confirmPassword VARCHAR(32) AFTER password;
 
 ------------------------------------- drop a colum on mysql  --------------------------------------------------------------------------
-ALTER TABLE `user_profile` DROP COLUMN `Contact`;
+ALTER TABLE `career_goal` DROP COLUMN `Contact`;
 
 ALTER TABLE user_profile MODIFY RegisteredAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP;
 
@@ -80,4 +94,5 @@ GRANT ALL PRIVILEGES ON *.* TO 'test'@'%' WITH GRANT OPTION |
 show GRANTS FOR Lindo;
 -------------------------------------------------------------------------------------------------------------------------------------
 
-create database `user_storage`;
+--------------------------------------------------------------------------------------------drop table------------------------------------------
+Drop table career_goal;

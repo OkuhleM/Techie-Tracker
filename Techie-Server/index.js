@@ -5,20 +5,24 @@ const app = express();
 const port = process.env.PORT || 5000;
 const cors = require("cors");
 const bodyParser = require('body-parser');
-
+var cookieParser = require('cookie-parser')
 const {authenticateUser} = require("./Middleware/authentication")
 
 const { userRoutes } = require("./Routes/Routes");
-// const { configDotenv } = require("dotenv");
-// const { techieUserConnection } = require("./DataBase/Server");
-
 
 app.use(bodyParser.urlencoded({ extended: true }))
 
 app.use(express.json());
 app.use(bodyParser.json())
-app.use(cors());
-// app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cors(
+  {
+    origin:["http://localhost:3001"],
+    methods: ["POST","GET"],
+    credentials: true
+  }
+));
+
+app.use(cookieParser())
 
 authenticateUser(app)
 userRoutes(app)

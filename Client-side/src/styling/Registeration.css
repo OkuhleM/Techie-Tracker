@@ -4,6 +4,14 @@ form{
 }
 
 input{
-    padding: 2vw;
-    margin: 1rem;
+    padding: 1rem;
+    margin-top: 15px;
 }
+
+button{
+    margin-top: 15px;
+    /* text-align: center; */
+    cursor: pointer;
+    margin-left: 35px;
+}
+
