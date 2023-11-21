@@ -23,6 +23,15 @@ const saveUserProfile = async (values) => {
 
 }
 
+const saveGoals = async (values) => {
+const {FirstQuater,SecondQuater,ThirdQuater,FourthQuater, YearWins} = values;
+
+let statement = "INSERT INTO career_goal (FirstQuater,SecondQuater,ThirdQuater,FourthQuater, YearWins) VALUES (?,?,?,?,?)" 
+let parameters = [FirstQuater,SecondQuater,ThirdQuater,FourthQuater, YearWins];
+
+return await createQuery(statement, parameters);
+}
+
 const checkEmail = async (Email) => {
     let statement = "SELECT * FROM user_profile WHERE Email =?;";
     let parameters = [Email];
@@ -45,4 +54,4 @@ const checkEmail = async (Email) => {
 
  
 
-module.exports = {saveUserProfile, checkEmail, checkPassword,checkIfPassword}
+module.exports = {saveUserProfile, checkEmail, checkPassword,checkIfPassword, saveGoals}

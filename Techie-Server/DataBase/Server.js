@@ -3,10 +3,11 @@ require("dotenv").config();
     'use strict';
    
     const databaseConnection = mysql.createConnection({
-      host     : 'localhost',
-      user     : 'root',
-      password : 'L!nd0kuhle@22',
-      database : 'user_storage'
+      host     : process.env.HOST,
+      // port     : process.env.PORT,
+      user     : process.env.USER,
+      password : process.env.PASSWORD,
+      database : process.env.DATABASE
     });
     databaseConnection.connect(function(err) {
       if (err) throw err;

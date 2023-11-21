@@ -9,6 +9,7 @@ var cookieParser = require('cookie-parser')
 const {authenticateUser} = require("./Middleware/authentication")
 
 const { userRoutes } = require("./Routes/Routes");
+const { careerGoals } = require("./Middleware/careerGoals");
 
 app.use(bodyParser.urlencoded({ extended: true }))
 
@@ -26,6 +27,7 @@ app.use(cookieParser())
 
 authenticateUser(app)
 userRoutes(app)
+careerGoals(app)
 
 app.get('/', function (req, res) {
   res.send('Server listening on this port'); // This will serve your request to '/'.

@@ -7,7 +7,7 @@ const bcrypt = require('bcrypt')
 // const { check, validationResult } = require("express-validator");
 const path = require("path");
 const { databaseConnection } = require("../DataBase/Server");
-const { verify } = require("crypto");
+const { verify } = require("jsonwebtoken");
 
 require("dotenv").config({ dpath: path.resolve(__dirname, "../env") })
 
@@ -16,28 +16,28 @@ require("dotenv").config({ dpath: path.resolve(__dirname, "../env") })
 
 const userRoutes = (app) =>{
 
-  const verifyUser =(req,res,next)=>{
+const verifyUser = (req,res,next) => {
+  const accessToken = req.cookies.token
+  console.log('accessToken', accessToken)
+  if (!accessToken) return res.json({ error: "User not logged in!" });
 
-    const token = req.cookies.token;
-    if(!token){
-      return res.json({Message: "Token is needed Please provide it. Login now"})
-    }else{
-jwt.verify(token,process.env.SECRETKEY,(error,decoded)=>{
-  if(error){
-    return res.json({Message: "Authentication Failed!!!"})
-
-  }else{
-     req.name = decoded.name;
-    next()
-  }
-})
+  try {
+    const validToken = verify(accessToken, process.env.SECRETKEY);
+    console.log('validToken', validToken)
+    req.user = validToken;
+    if (validToken) {
+      console.log('validToken', validToken)
+      return next();
     }
+  } catch (err) {
+    return res.json({ error: err });
   }
+}
 
-
-app.get("/",verifyUser,(req,res)=>{
-return res.json({Status: "Success", name: req.name})
+app.get("/auth",verifyUser,(req,res)=>{
+return res.json({Status: "Success", name: req.user})
 })
+
 
 
 app.post("/login", (req,res)=>{
@@ -60,7 +60,7 @@ app.post("/login", (req,res)=>{
 
      })
     }else{
-      return  res.json({error:"no email exists"})
+      return  res.json({error:"Account Does not exist exists"})
     }
   })
 })

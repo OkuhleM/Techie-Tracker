@@ -1,0 +1,40 @@
+.list-of-goals{
+    margin-top: auto;
+}
+
+.container{
+    margin: 5rem;
+    text-align: center;
+}
+
+input[type="text"]{
+    width: 50%;
+}
+
+.increment{
+    width: 10vw;
+    height: 5vh;
+}
+
+.heading{
+    text-transform: uppercase;
+    font-size: 19px;
+    text-align: center;
+}
+
+.heading-container{
+    border: 2px solid white;
+    padding: 2vh;
+    width: 50%;
+    margin-top: 5rem;
+    margin-left: 17rem;
+}
+
+.contents{
+    padding: 15px;
+    border: 2px solid white;
+    width: 50%;
+    margin-bottom: 3vh;
+    margin-left: 17rem;
+    text-align: left;
+}

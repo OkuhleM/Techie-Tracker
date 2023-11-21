@@ -27,7 +27,7 @@ async (req,res) => {
     } = req.body
 
 
-    let errors = validationResult(req)
+    // let errors = validationResult(req)
     const confirmEmail = await checkEmail(Email);
       const passwordThatHasBeenEncrypted = await userPassword(password);
    
@@ -42,11 +42,6 @@ async (req,res) => {
           Intro,
           RegisteredAt
         };
-
-        // if (!errors.not().isEmpty()) {
-        //     const errorMessage = { message: "could not create account" };
-        //     console.log('error in detail', errors)
-        //     return res.send(errorMessage).status(5001);}
            if ({confirmEmail}.length > 0) {
             return res.send({ message: "Email already exist" }).status(501);
           } else if (confirmPassword !== password) {
