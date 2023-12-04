@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import '../styling/habitTracker.css'
 
 function HabitTracker() {
   return (
@@ -6,10 +7,14 @@ function HabitTracker() {
         <h1>Track Your habits</h1>
         <div className='Table'>
             <table>
+              <tr>
+
                 <th>Habits</th>
                 {/* <td>Read Something</td> */}
                 <th>Months</th>
                 {/* <td>Jan</td> */}
+              
+
                 <th>1</th>
                 <th>2</th>
                 <th>3</th>
@@ -41,6 +46,7 @@ function HabitTracker() {
                 <th>29</th>
                 <th>30</th>
                 <th>31</th>
+                </tr>
             </table>
         </div>
     </div>

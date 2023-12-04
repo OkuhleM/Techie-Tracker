@@ -14,11 +14,11 @@ return error    }
 
 
 const saveUserProfile = async (values) => {
-    const { Name, Surname, Email, password, confirmPassword,Intro,RegisteredAt } = values;
+    const { Name, Surname, Username, Email, password, confirmPassword,Intro,RegisteredAt } = values;
 
-    let statement = "INSERT INTO user_profile (Name, Surname, Email, password, confirmPassword, Intro, RegisteredAt) VALUES (?, ?, ?, ?, ?, ?, Now())";
+    let statement = "INSERT INTO user_profile (Name, Surname, Username, Email, password, confirmPassword, Intro, RegisteredAt) VALUES (?, ?, ?, ?, ?, ?,?, Now())";
 
-     let parameters = [Name, Surname, Email, password, confirmPassword, Intro,RegisteredAt];
+     let parameters = [Name, Surname, Username, Email, password, confirmPassword, Intro,RegisteredAt];
      return await createQuery(statement, parameters);
 
 }
@@ -32,8 +32,32 @@ let parameters = [FirstQuater,SecondQuater,ThirdQuater,FourthQuater, YearWins];
 return await createQuery(statement, parameters);
 }
 
+const SaveYearInReviewData = async (data) => {
+  const { Highlights, Lowlight, Needlights, CreatedAt, UpdatedAt, UserId} = data
+
+  let statement = "INSERT INTO year_in_review(Highlights, Lowlight, Needlights, CreatedAt, UpdatedAt, UserId) VALUES (?,?,?,NOW(),NOW(),?"
+  let parameter = [Highlights, Lowlight, Needlights, CreatedAt, UpdatedAt, UserId]
+
+  return await createQuery(statement, parameter)
+}
+
+const saveSkillsData = async (data) => {
+  const {Skill, Catergory, CourseLink, TrainingStatus, Comments, CreatedAt, UpdatedAt, UserId} = data
+  let statement  = "INSERT INTO skill_tracker(Skill, Catergory, CourseLink, TrainingStatus, Comments, CreatedAt, UpdatedAt, UserId) VALUES (?,?,?,?,?,NOW(),NOW(),?)"
+  let parameters = [Skill, Catergory, CourseLink, TrainingStatus, Comments, CreatedAt, UpdatedAt, UserId]
+   return await createQuery(statement,parameters)
+}
+
+const saveHabitTrackerData = async (data) => {
+  const {ReadSomething, PractiseCode, WriteSomething, CreatedAt, Updated, UserId} = data
+  const statement = "INSERT INTO habit_tracker (ReadSomething, PractiseCode, WriteSomething, CreatedAt, Updated, UserId) VALUES (?,?,?,NOW(),NOW(),?"
+  const parameters = [ReadSomething, PractiseCode, WriteSomething, CreatedAt, Updated, UserId];
+
+  return await createQuery(statement,parameters)
+}
+
 const checkEmail = async (Email) => {
-    let statement = "SELECT * FROM user_profile WHERE Email =?;";
+    let statement = "SELECT Email FROM user_profile WHERE Email =?;";
     let parameters = [Email];
     return await createQuery(statement, parameters);
   };
@@ -52,6 +76,23 @@ const checkEmail = async (Email) => {
     return await createQuery(statement, parameters);
   };
 
+
+  const checkIfUserExists = async (Username) => {
+    let statement = "SELECT Username FROM user_profile WHERE Username = ?;";
+    let parameters = [Username];
+    console.log('Username', Username)
+
+    return await createQuery(statement, parameters)
+  }
+  const getAllUsers = async () => {
+    let statement = "SELECT * FROM user_profile;";
+    return await createQuery(statement);
+  };
+
+
+  
  
 
-module.exports = {saveUserProfile, checkEmail, checkPassword,checkIfPassword, saveGoals}
+module.exports = {saveUserProfile, checkEmail, checkPassword,checkIfPassword, 
+                  saveGoals,SaveYearInReviewData, saveSkillsData, saveHabitTrackerData,
+                checkIfUserExists, getAllUsers}

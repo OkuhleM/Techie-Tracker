@@ -1,6 +1,7 @@
 // const techieUserConnection = require("../DataBase/Server")
 const {saveUserProfile, checkEmail, checkPassword} = require("../Queries/index")
 const {confirmUserPassword } = require("../Security/Security")
+const {modifyData} = require("../Queries/ModifyData")
 
 const jwt = require("jsonwebtoken");
 const bcrypt = require('bcrypt')
@@ -64,6 +65,26 @@ app.post("/login", (req,res)=>{
     }
   })
 })
+
+app.get("/get_allBooks", async (req, res) => {
+  try {
+    const allBooks = await getAllBooks();
+    res.send(allBooks).status(201);
+  } catch (error) {}
+});
+
+app.put("/modifydata/:UserID", async (req, res) => {
+  const {UserID} = req.params
+  const {Name,Surname,Email,Intro} = req.body
+  try {
+    const findUser = await modifyData({Name,Surname,Email,Intro},UserID);
+    console.log("findUser", findUser);
+    res.send(findUser).status(200);
+  } catch (error) {
+    console.log(error);
+    res.send(404);
+  }
+});
 
 
    }

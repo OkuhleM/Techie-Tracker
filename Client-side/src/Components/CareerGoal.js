@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-
+import axios from 'axios';
 import '../styling/careerGoal.css'
 
 function CareerGoal() {
@@ -18,13 +18,18 @@ const addInput = e => {
 }
     const handleChange = (e) => {
          setInputs({...inputs,[e.target.name]: e.target.value})
-    
+
     }
 
 const submitInput = e => {
 e.preventDefault()
 console.log('clicked')
-setSaveGoals([...saveGoals,inputs])
+axios.post("http://localhost:3000/careergoal", inputs)
+.then(res=>{
+  console.log('res', res.data)
+//   setUsers(res.data.data)
+setSaveGoals(res.data.data)
+})
 console.log('inputs', inputs)
 }
 console.log('inputs', inputs)

@@ -14,16 +14,17 @@ function RegisterPage() {
     "Intro": ""})
 
   const [usersList, setUsers] = useState([])
+  const [messageError, setMessageError] = useState(" ")
 
   const navigate = useNavigate()
-
+ 
+  
 
   const handleChange = (e) => {
     setInputValue({...inputValue,[e.target.name]: e.target.value})
 
 }
-console.log('inputValue', inputValue)
-console.log('usersList', usersList)
+
 const register = (e) => {
     e.preventDefault()
   axios.post("http://localhost:3000/register", inputValue)

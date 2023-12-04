@@ -98,3 +98,5 @@ show GRANTS FOR Lindo;
 Drop table career_goal;
 ---------------------------------------------------------------------------------------------------------------------------------------------------------
 ALTER TABLE user_profile ADD COLUMN Avatar VARCHAR(15) AFTER Surname;
+
+ALTER TABLE user_profile ADD COLUMN Username TEXT AFTER Surname;

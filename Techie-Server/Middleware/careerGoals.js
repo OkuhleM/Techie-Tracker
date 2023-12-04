@@ -1,11 +1,7 @@
 const path = require("path");
 require("dotenv").config({ dpath: path.resolve(__dirname, "../env") });
 
-const { saveUserProfile, 
-    checkEmail, 
-    checkPassword,
-    saveGoals 
-} = require("../Queries/index");
+const { saveGoals } = require("../Queries/index");
 
 
 const careerGoals = (app) => {
@@ -13,17 +9,19 @@ const careerGoals = (app) => {
         app.post('/careergoal', async (req,res) => {
     
         const {
-          CareerGoalID, FirstQuater,SecondQuater,ThirdQuater,FourthQuater, YearWins
+          CareerGoalID, FirstQuater,SecondQuater,ThirdQuater,FourthQuater, YearWins, UserID
         } = req.body
     
        
           try {
             const userCareerGoals = {
+                CareerGoalID,
                 FirstQuater,
                 SecondQuater,
                 ThirdQuater,
                 FourthQuater,
-                YearWins
+                YearWins,
+                UserID
             };
       
                 

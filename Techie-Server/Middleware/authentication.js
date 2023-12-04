@@ -1,17 +1,12 @@
-const { check, validationResult } = require("express-validator");
+const { check } = require("express-validator");
 const jwt = require("jsonwebtoken");
-
 const path = require("path");
-require("dotenv").config({ dpath: path.resolve(__dirname, "../env") });
-
 const { userPassword} = require("../Security/Security")
 
-const { saveUserProfile, 
-        checkEmail, 
-        checkPassword, 
-    } = require("../Queries/index");
-const { techieUserConnection } = require("../DataBase/Server");
+require("dotenv").config({ dpath: path.resolve(__dirname, "../env") });
 
+const { saveUserProfile, checkEmail } = require("../Queries/index");
+const { databaseConnection } = require("../DataBase/Server");
 
 const authenticateUser = (app) => {
     app.post('/register', [ check("Email").isEmail(),
@@ -19,42 +14,44 @@ check("password").isLength({
     min:8,
 }),
 
-],
+], 
 async (req,res) => {
 
     const {
-      UserID, Name, Surname, Email, password, confirmPassword, RegisteredAt, Intro
+      UserID, Name, Surname, Username, Email, password, confirmPassword, RegisteredAt, Intro
     } = req.body
 
-
-    // let errors = validationResult(req)
     const confirmEmail = await checkEmail(Email);
       const passwordThatHasBeenEncrypted = await userPassword(password);
-   
       try {
         const users = {
           UserID,
           Name,
           Surname,
+          Username,
           Email,
           password: passwordThatHasBeenEncrypted,
           confirmPassword: passwordThatHasBeenEncrypted,
           Intro,
           RegisteredAt
         };
+       
            if ({confirmEmail}.length > 0) {
-            return res.send({ message: "Email already exist" }).status(501);
-          } else if (confirmPassword !== password) {
-            return res.send({ message: "Password does not match" }).status(501);
+             res.send({ message: "Email already exist" }).status(501);
+          }
+          else if (confirmPassword !== password) {
+             res.send({ message: "Password does not match" }).status(501);
           }
           
-          
+    
           const token = jwt.sign({ payload: Email }, process.env.SECRETKEY, {
               expiresIn: "2h",
             }); 
             
         const data = await saveUserProfile(users);
         return res.send({data,token}).status(200);
+
+        
         }
 
 
@@ -64,6 +61,18 @@ catch (error) {
 }
 }
 )
+
+app.get("/retrievedata", (req, res) => {
+  let sql = "SELECT * FROM user_profile";
+  
+  databaseConnection.query(sql, (err, result) => {
+      if(err) throw err;
+      console.log(result);
+      res.send(result);
+  });
+});
+
+
 
 
 }

@@ -24,6 +24,7 @@ function YearInReview() {
             <input type='text'/>
 
             </div>
+            <button>Save</button>
     </div>
   )
 }
