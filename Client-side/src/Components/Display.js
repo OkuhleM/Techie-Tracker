@@ -9,6 +9,7 @@ import CareerGoal from './CareerGoal';
 import HabitTracker from './HabitTracker';
 import YearInReview from './YearInReview';
 import SkillTracker from './SkillTracker';
+import LandingPage from './LandingPage';
 
 function Display() {
   return (
@@ -16,7 +17,8 @@ function Display() {
       {/* <RegisterPage/> */}
       <Router>
       <Routes>
-        <Route path='/' element={<Home />}></Route>
+        <Route path='/' element={<LandingPage />}></Route>
+        <Route path='/home' element={<Home />}></Route>
         <Route path='/register' element={<RegisterPage/>}></Route>
         <Route path='/login' element={<Login />}></Route>
         <Route path='/profile' element={<Profile/>}></Route>

@@ -1,13 +1,13 @@
-* {
+/* * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-}
+} */
 
-body {
+/* body {
   background-color: cadetblue;
   color: peachpuff;
-}
+} */
 
 .top-nav{
   background-color: beige;
